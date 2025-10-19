@@ -1,28 +1,31 @@
 public class Fraction {
+    // encap
     private int numerator;
     private int denominator;
 
-    // No-arg constructor: defaults to 0/1
+    // Default constructor
     public Fraction() {
-        this(0, 1);
+        this(0, 1);  // 0/1 is the "empty" fraction
     }
 
-    // Two-arg constructor: reduces and normalizes sign
+    // Custom constructor
     public Fraction(int numerator, int denominator) {
         if (denominator == 0) {
             throw new IllegalArgumentException("Denominator cannot be zero.");
         }
-        // Normalize sign so denominator is always positive
+
+        // Normalize sign (denominator should be positive)
         if (denominator < 0) {
             numerator = -numerator;
             denominator = -denominator;
         }
+
         int g = gcd(Math.abs(numerator), Math.abs(denominator));
         this.numerator = numerator / g;
         this.denominator = denominator / g;
-    }
 
-    // Euclid's algorithm
+    }
+    // runs until b = 0, and returns gcd
     private static int gcd(int a, int b) {
         while (b != 0) {
             int t = a % b;
@@ -32,52 +35,40 @@ public class Fraction {
         return (a == 0) ? 1 : a;
     }
 
-    // Getters & Setters (setters re-reduce and normalize)
-    public int getNumerator() { return numerator; }
-    public void setNumerator(int numerator) {
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
+    public void setNumerator( int numerator) {
         this.numerator = numerator;
-        int g = gcd(Math.abs(this.numerator), Math.abs(this.denominator));
-        this.numerator /= g;
-        this.denominator /= g;
-        if (this.denominator < 0) {
-            this.numerator = -this.numerator;
-            this.denominator = -this.denominator;
-        }
     }
 
-    public int getDenominator() { return denominator; }
     public void setDenominator(int denominator) {
-        if (denominator == 0) throw new IllegalArgumentException("Denominator cannot be zero.");
+        if (denominator == 0) throw new IllegalArgumentException("Denominator cannot be 0");
         this.denominator = denominator;
-        int g = gcd(Math.abs(this.numerator), Math.abs(this.denominator));
-        this.numerator /= g;
-        this.denominator /= g;
-        if (this.denominator < 0) {
-            this.numerator = -this.numerator;
-            this.denominator = -this.denominator;
-        }
-    }
-
-    // Override equals to compare reduced forms
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Fraction)) return false;
-        Fraction f = (Fraction) other;
-        return this.numerator == f.numerator && this.denominator == f.denominator;
-    }
-
-    // Good practice when overriding equals
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + numerator;
-        result = 31 * result + denominator;
-        return result;
     }
 
     @Override
+    // equals() lets Java compare two Fraction objects by value instead of memory.
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if(!(obj instanceof Fraction)) return false;
+        Fraction other = (Fraction) obj;
+        return this.numerator == other.numerator && this.numerator == other.denominator;
+
+    }
+
+    @Override 
+    // toString() controls how it prints when you System.out.println() it.
     public String toString() {
         return numerator + "/" + denominator;
     }
 }
+
+   
+
+    
