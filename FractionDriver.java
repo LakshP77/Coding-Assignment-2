@@ -7,7 +7,7 @@ public class FractionDriver{
     public static void main(String[] args) {
         // handle missng arguments
         if(args.length < 1) {
-            System.out.println("Usage: java FractionDriver <filename>");
+            System.out.println("Usage: java FractionDriver <fractions>");
             System.exit(1);
         }
 

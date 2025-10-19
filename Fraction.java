@@ -58,7 +58,7 @@ public class Fraction {
         if (this == obj) return true;
         if(!(obj instanceof Fraction)) return false;
         Fraction other = (Fraction) obj;
-        return this.numerator == other.numerator && this.numerator == other.denominator;
+        return this.numerator == other.numerator && this.denominator == other.denominator;
 
     }
 
